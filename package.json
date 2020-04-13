@@ -1,0 +1,68 @@
+{
+  "name": "moment-utl",
+  "version": "1.0.0",
+  "description": "Moment.js utilities.",
+  "keywords": [
+    "moment",
+    "date",
+    "time",
+    "format",
+    "i18n",
+    "utils",
+    "utl",
+    "utility",
+    "utilities"
+  ],
+  "author": "Anton Bagdatyev (Tonix)",
+  "license": "MIT",
+  "main": "dist/moment-utl.js",
+  "module": "dist/es6/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonix-tuft/moment-utl.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "WEBPACK_ENV=watch webpack --progress --colors --watch",
+    "mkdir-build": "mkdir -p ./dist/es6",
+    "clear-build": "find ./dist ! -name '.gitignore' -type f -exec rm -f {} +",
+    "dev-build": "WEBPACK_ENV=watch webpack --progress --colors",
+    "build": "WEBPACK_ENV=build webpack",
+    "publish-git": "npm publish && git push && git push --tags",
+    "build-all": "npm run mkdir-build && npm run clear-build && npm run build && npm run dev-build && npm run build-module",
+    "publish-patch": "npm run build-all && npm version patch && npm run publish-git",
+    "publish-minor": "npm run build-all && npm version minor && npm run publish-git",
+    "publish-major": "npm run build-all && npm version major && npm run publish-git",
+    "build-module": "cross-env BABEL_ENV=module ./node_modules/.bin/babel ./src --out-dir ./dist/es6 --source-maps --copy-files"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/traverse": "^7.9.5",
+    "@babel/types": "^7.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^3.0.3",
+    "minimist": ">=1.2.3",
+    "serialize-javascript": "^2.1.2",
+    "terser-webpack-plugin": "^2.3.5",
+    "typescript": "^3.7.4",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.10"
+  },
+  "bugs": {
+    "url": "https://github.com/tonix-tuft/moment-utl/issues"
+  },
+  "homepage": "https://github.com/tonix-tuft/moment-utl#readme",
+  "dependencies": {},
+  "files": [
+    "dist",
+    "src"
+  ]
+}
