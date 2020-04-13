@@ -25,7 +25,9 @@ var config = {
     globalObject:
       "(typeof self !== 'undefined' ? self : (typeof global !== 'undefined' ? global : this))",
     umdNamedDefine: true,
-    libraryExport: "default"
+  },
+  externals: {
+    moment: "moment",
   },
   module: {
     rules: [
@@ -39,29 +41,34 @@ var config = {
             {
               plugins: [
                 "@babel/plugin-proposal-object-rest-spread",
-                "@babel/plugin-proposal-class-properties"
-                // , [
-                //   "@babel/plugin-transform-runtime",
-                //   {
-                //     "corejs": false,
-                //     "regenerator": true
-                //   }
-                // ]
-              ]
-            }
-          ]
-        }
+                "@babel/plugin-proposal-class-properties",
+                [
+                  "@babel/plugin-transform-runtime",
+                  {
+                    regenerator: true,
+                  },
+                ],
+              ],
+            },
+          ],
+        },
       },
       {
         test: /(\.jsx|\.js)$/,
         loader: "eslint-loader",
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: [".js"]
-  }
+    extensions: [".js"],
+  },
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\/locale$/,
+      contextRegExp: /moment$/,
+    }),
+  ],
 };
 
 if (env === "build") {
@@ -72,15 +79,16 @@ if (env === "build") {
         parallel: true,
         terserOptions: {
           output: {
-            comments: false
-          }
-        }
-      })
-    ]
+            comments: false,
+          },
+        },
+      }),
+    ],
   };
   config.mode = "production";
   config.devtool = false;
 } else {
+  config.output.publicPath = "./dist/";
   config.mode = "development";
 }
 
