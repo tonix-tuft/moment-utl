@@ -23,7 +23,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
+import { allSupportedLocalesObj } from "../res/locales";
+
+/**
+ * Returns a map of all the supported locales by Moment, without the need
+ * to having them being loaded into Moment.
+ *
+ * @return {Object} An object where each key is a string identifying a locale
+ *                  and the corresponding value is a unique int identifying the locale
+ *                  starting from 1.
+ */
+export default function allSupportedLocalesMap() {
+  return allSupportedLocalesObj;
+}

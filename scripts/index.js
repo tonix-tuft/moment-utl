@@ -23,7 +23,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
+import createAllSupportedLocalesRes from "./createAllSupportedLocalesRes";
+
+createAllSupportedLocalesRes();

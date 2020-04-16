@@ -23,7 +23,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
+import allSupportedLocalesMap from "./allSupportedLocalesMap";
+
+/**
+ * @type {string}
+ */
+const FALLBACK_DEFAULT_LOCALE = "en-us";
+
+/**
+ * Converts a string representing a locale to a Moment locale.
+ *
+ * This function reformats an incoming locale (e.g. "zh_CN" to "zh-cn")
+ * and checks if it's supported by Moment, falling back to the country,
+ * then falling back to the Moment's fallback default locale (USA's English "en-us").
+ *
+ * @param {string} locale A string representing a locale.
+ * @return {string} The Moment locale for the given string.
+ */
+export default function toMomentLocale(locale) {
+  const newLocale = locale.replace("_", "-").toLowerCase();
+  const localesToTry = [newLocale, newLocale.split("-")[0]];
+  const allLocalesMap = allSupportedLocalesMap();
+  for (const localeToTry of localesToTry) {
+    if (typeof allLocalesMap[localeToTry] !== "undefined") {
+      return localeToTry;
+    }
+  }
+  return FALLBACK_DEFAULT_LOCALE;
+}

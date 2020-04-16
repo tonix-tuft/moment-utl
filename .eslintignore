@@ -1,4 +1,6 @@
 *.js
 */**
 !src/**
+!scripts/**
 src/**/private
+scripts/**/private

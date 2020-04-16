@@ -16,24 +16,29 @@
   "author": "Anton Bagdatyev (Tonix)",
   "license": "MIT",
   "main": "dist/moment-utl.js",
-  "module": "dist/es6/index.js",
+  "module": "es6/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonix-tuft/moment-utl.git"
   },
+  "bin": {
+    "moment-utl-locales": "./bin/moment-utl-locales.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "WEBPACK_ENV=watch webpack --progress --colors --watch",
-    "mkdir-build": "mkdir -p ./dist/es6",
+    "mkdir-build": "mkdir -p ./es6 && mkdir -p ./dist/bin",
     "clear-build": "find ./dist ! -name '.gitignore' -type f -exec rm -f {} +",
     "dev-build": "WEBPACK_ENV=watch webpack --progress --colors",
     "build": "WEBPACK_ENV=build webpack",
+    "build-bin": "cross-env BABEL_ENV=bin ./node_modules/.bin/babel ./scripts --out-dir ./dist/bin --source-maps --copy-files",
+    "build-module": "cross-env BABEL_ENV=module ./node_modules/.bin/babel ./src --out-dir ./es6 --source-maps --copy-files",
+    "build-locales": "./bin/moment-utl-locales.js",
     "publish-git": "npm publish && git push && git push --tags",
-    "build-all": "npm run mkdir-build && npm run clear-build && npm run build && npm run dev-build && npm run build-module",
+    "build-all": "npm run mkdir-build && npm run clear-build && npm run build-bin && npm run build-locales && npm run build && npm run dev-build && npm run build-module",
     "publish-patch": "npm run build-all && npm version patch && npm run publish-git",
     "publish-minor": "npm run build-all && npm version minor && npm run publish-git",
-    "publish-major": "npm run build-all && npm version major && npm run publish-git",
-    "build-module": "cross-env BABEL_ENV=module ./node_modules/.bin/babel ./src --out-dir ./dist/es6 --source-maps --copy-files"
+    "publish-major": "npm run build-all && npm version major && npm run publish-git"
   },
   "peerDependencies": {
     "moment": "^2.0.0"
@@ -47,8 +52,8 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/traverse": "^7.9.5",
     "@babel/types": "^7.9.5",
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-loader": "^3.0.4",
@@ -64,9 +69,15 @@
     "url": "https://github.com/tonix-tuft/moment-utl/issues"
   },
   "homepage": "https://github.com/tonix-tuft/moment-utl#readme",
-  "dependencies": {},
+  "dependencies": {
+    "node-utl": "^1.5.0"
+  },
   "files": [
+    "bin",
     "dist",
+    "es6",
+    "res",
+    "scripts",
     "src"
   ]
 }

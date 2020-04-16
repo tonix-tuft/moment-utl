@@ -23,7 +23,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
+import { allSupportedLocales as allSupportedLocalesArray } from "../res/locales";
+
+/**
+ * Returns all the supported locales by Moment, without the need
+ * to having them being loaded into Moment.
+ *
+ * @return {string[]} An array of all the supported locales where each value is a string
+ *                    identifying a locale.
+ */
+export default function allSupportedLocales() {
+  return allSupportedLocalesArray;
+}
