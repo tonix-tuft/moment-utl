@@ -27,7 +27,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "WEBPACK_ENV=watch webpack --progress --colors --watch",
-    "mkdir-build": "mkdir -p ./es6 && mkdir -p ./dist/bin",
+    "mkdir-build": "mkdir -p ./es6 && mkdir -p ./dist/bin && mkdir -p ./res",
     "clear-build": "find ./dist ! -name '.gitignore' -type f -exec rm -f {} +",
     "dev-build": "WEBPACK_ENV=watch webpack --progress --colors",
     "build": "WEBPACK_ENV=build webpack",
