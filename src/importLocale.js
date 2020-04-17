@@ -23,6 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import toMomentLocale, { DEFAULT_FALLBACK_LOCALE } from "./toMomentLocale";
+
 /**
  * Imports a Moment locale asynchronously (using dynamic imports).
  *
@@ -32,6 +34,11 @@
  *                   (e.g. it is not found or there is a network error).
  */
 export default async function importLocale(locale) {
+  locale = toMomentLocale(locale);
+  if (locale === DEFAULT_FALLBACK_LOCALE) {
+    // Moment does not bundle its default fallback locale in a separate file.
+    return Promise.resolve();
+  }
   await import(`moment/locale/${locale}`);
   return locale;
 }

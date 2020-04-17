@@ -28,7 +28,7 @@ import allSupportedLocalesMap from "./allSupportedLocalesMap";
 /**
  * @type {string}
  */
-const FALLBACK_DEFAULT_LOCALE = "en-us";
+export const DEFAULT_FALLBACK_LOCALE = "en-us";
 
 /**
  * Converts a string representing a locale to a Moment locale.
@@ -49,5 +49,5 @@ export default function toMomentLocale(locale) {
       return localeToTry;
     }
   }
-  return FALLBACK_DEFAULT_LOCALE;
+  return DEFAULT_FALLBACK_LOCALE;
 }
