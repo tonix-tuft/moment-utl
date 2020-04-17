@@ -86,7 +86,7 @@ const allSupportedLocalesObj = ${JSON.stringify(
     locales.reduce((carry, current) => ({ ...carry, [current]: id++ }), {})
   )};
 
-module.exports = { allSupportedLocales, allSupportedLocalesObj };
+export { allSupportedLocales, allSupportedLocalesObj };
 `;
   writeFileSync(`${RES_FOLDER_PATH}/locales.js`, localesCode);
 }
