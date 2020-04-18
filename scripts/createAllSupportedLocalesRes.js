@@ -32,6 +32,11 @@ import { writeFileSync } from "fs";
 const RES_FOLDER_PATH = `${__dirname}/../../res`; // The script executes from within the ./dist/bin directory.
 
 /**
+ * @type {string}
+ */
+const DEFAULT_FALLBACK_LOCALE = "en";
+
+/**
  * Creates a resource file for all the supported locales of the Moment library.
  *
  * @return {undefined}
@@ -41,15 +46,22 @@ export default function createAllSupportedLocalesRes() {
   const momentPackagePath = packagePath("moment");
   const localesPath = `${momentPackagePath}/locale`;
   const allSupportedLocalesAbsoluteFilenames = walkSync(localesPath);
-  const locales = allSupportedLocalesAbsoluteFilenames
-    .map(basenameWithoutExtension)
-    .sort();
+  const locales = allSupportedLocalesAbsoluteFilenames.map(
+    basenameWithoutExtension
+  );
+  locales.push(DEFAULT_FALLBACK_LOCALE);
+  locales.sort();
   let id = 1;
   const localesCode = `/**
  * This file was automatically built by "moment-utl" or it has been recreated
  * with the "npx moment-utl-locales" command to use the locales of the "moment" package
  * used by the client code.
  */
+
+/**
+ * @type {string}
+ */
+const DEFAULT_FALLBACK_LOCALE = ${JSON.stringify(DEFAULT_FALLBACK_LOCALE)};
 
 /**
  * @type {string[]}
@@ -63,7 +75,7 @@ const allSupportedLocalesObj = ${JSON.stringify(
     locales.reduce((carry, current) => ({ ...carry, [current]: id++ }), {})
   )};
 
-export { allSupportedLocales, allSupportedLocalesObj };
+export { DEFAULT_FALLBACK_LOCALE, allSupportedLocales, allSupportedLocalesObj };
 `;
   writeFileSync(`${RES_FOLDER_PATH}/locales.js`, localesCode);
 }

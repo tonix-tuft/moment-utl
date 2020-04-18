@@ -24,6 +24,7 @@
  */
 
 import allSupportedLocalesMap from "./allSupportedLocalesMap";
+import { DEFAULT_FALLBACK_LOCALE } from "../res/locales";
 
 /**
  * @type {string}
@@ -38,11 +39,6 @@ const NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR = "-";
  */
 const normalizeLocale = (locale) =>
   locale.replace("_", NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR).toLowerCase();
-
-/**
- * @type {string}
- */
-export const DEFAULT_FALLBACK_LOCALE = normalizeLocale("en");
 
 /**
  * Converts a string representing a locale to a Moment locale.
