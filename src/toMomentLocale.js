@@ -28,26 +28,58 @@ import allSupportedLocalesMap from "./allSupportedLocalesMap";
 /**
  * @type {string}
  */
-export const DEFAULT_FALLBACK_LOCALE = "en-us";
+const NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR = "-";
+
+/**
+ * Normalizes a locale.
+ *
+ * @param {string} locale The locale.
+ * @return {string} The normalized locale.
+ */
+const normalizeLocale = (locale) =>
+  locale.replace("_", NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR).toLowerCase();
+
+/**
+ * @type {string}
+ */
+export const DEFAULT_FALLBACK_LOCALE = normalizeLocale("en");
 
 /**
  * Converts a string representing a locale to a Moment locale.
  *
  * This function reformats an incoming locale (e.g. "zh_CN" to "zh-cn")
- * and checks if it's supported by Moment, falling back to the country,
- * then falling back to the Moment's fallback default locale (USA's English "en-us").
+ * and checks if it's supported by Moment, falling back to language code only (e.g. "zh"),
+ * then falling back to the Moment's default locale (USA's English, i.e. "en").
  *
  * @param {string} locale A string representing a locale.
- * @return {string} The Moment locale for the given string.
+ * @return {Array} A tuple where the first element is a string containing the normalized
+ *                 Moment locale for the given "locale" parameter and the second element
+ *                 is a boolean indicating whether the locale is known or not
+ *                 (if "true", the given locale is known and was looked up; if "false",
+ *                 it means that the given locale was not looked up and is unknown).
+ *                 When the given locale is unknown, the returned array will contain
+ *                 the Moment's default locale as its first element (USA's English, i.e. "en").
  */
 export default function toMomentLocale(locale) {
-  const newLocale = locale.replace("_", "-").toLowerCase();
-  const localesToTry = [newLocale, newLocale.split("-")[0]];
-  const allLocalesMap = allSupportedLocalesMap();
+  const normalizedLocale = normalizeLocale(locale);
+  const defaultNormalizedLocale = DEFAULT_FALLBACK_LOCALE;
+  const localesToTry = [
+    normalizedLocale,
+    normalizedLocale.split(NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR)[0],
+  ];
+  const allLocalesMap = {
+    ...allSupportedLocalesMap(),
+    // Using -1 as values here, but, really, any value which is not "undefined"
+    // would be OK in this case, because the value of the map is not used.
+    [defaultNormalizedLocale]: -1,
+    [defaultNormalizedLocale.split(
+      NORMALIZED_LOCALE_DESIGNATORS_SEPARATOR
+    )[0]]: -1,
+  };
   for (const localeToTry of localesToTry) {
     if (typeof allLocalesMap[localeToTry] !== "undefined") {
-      return localeToTry;
+      return [localeToTry, true];
     }
   }
-  return DEFAULT_FALLBACK_LOCALE;
+  return [defaultNormalizedLocale, false];
 }

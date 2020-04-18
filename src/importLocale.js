@@ -29,17 +29,34 @@ import toMomentLocale, { DEFAULT_FALLBACK_LOCALE } from "./toMomentLocale";
  * Imports a Moment locale asynchronously (using dynamic imports).
  *
  * @param {string} locale The locale to import.
- * @return {Promise} A promise which, if fulfilled, resolves when the given locale has been imported
+ * @param {(locale: string) => *} [unknownLocaleCallback] A callback called with the Moment's default locale (USA's English, i.e. "en")
+ *                                                        if the given locale is unknown, i.e. the given locale is not a locale known to Moment
+ *                                                        and it's not the Moment's default locale (USA's English, i.e. "en").
+ *                                                        If a locale is unknown, the callback is called before resolving
+ *                                                        the returned promise and the promise will resolve with the Moment's default locale
+ *                                                        (USA's English, i.e. "en").
+ * @return {Promise} A promise which, if fulfilled, resolves with the normalized locale when the given locale has been imported
  *                   successfully or rejects with the error if the given locale cannot be imported
- *                   (e.g. it is not found or there is a network error).
+ *                   (e.g. the locale chunk filename is not found or there is a network error).
+ *                   If the locale is unknown, then the returned promise doesn't reject.
  */
-export default async function importLocale(locale) {
-  locale = toMomentLocale(locale);
-  if (locale === DEFAULT_FALLBACK_LOCALE) {
-    // Moment does not bundle its default fallback locale in a separate file.
-    await Promise.resolve();
+export default async function importLocale(
+  locale,
+  unknownLocaleCallback = void 0
+) {
+  const [normalizedLocale, isKnown] = toMomentLocale(locale);
+  let promise = Promise.resolve();
+  if (isKnown) {
+    if (normalizedLocale !== DEFAULT_FALLBACK_LOCALE) {
+      promise = import(`moment/locale/${normalizedLocale}`);
+    } else {
+      // Moment does not bundle its default locale in a separate file,
+      // so there's nothing to do here.
+    }
   } else {
-    await import(`moment/locale/${locale}`);
+    typeof unknownLocaleCallback === "function" &&
+      unknownLocaleCallback(normalizedLocale);
   }
-  return locale;
+  await promise;
+  return normalizedLocale;
 }

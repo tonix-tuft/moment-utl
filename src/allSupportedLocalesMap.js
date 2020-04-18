@@ -34,5 +34,5 @@ import { allSupportedLocalesObj } from "../res/locales";
  *                  starting from 1.
  */
 export default function allSupportedLocalesMap() {
-  return allSupportedLocalesObj;
+  return { ...allSupportedLocalesObj };
 }

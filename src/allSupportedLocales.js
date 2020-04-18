@@ -33,5 +33,5 @@ import { allSupportedLocales as allSupportedLocalesArray } from "../res/locales"
  *                    identifying a locale.
  */
 export default function allSupportedLocales() {
-  return allSupportedLocalesArray;
+  return [...allSupportedLocalesArray];
 }
