@@ -259,7 +259,7 @@ You can also see this [comment][12] in this [issue #1][13].
 [8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 [9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 [10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[11]: #keeping-the-reslocalesjs-file-up-to-date
+[11]: #keeping-the-reslocalesjs-file-up-to-date-with-your-moment-installation
 [12]: https://github.com/tonix-tuft/moment-utl/issues/1#issuecomment-616088826
 [13]: https://github.com/tonix-tuft/moment-utl/issues/1
 
