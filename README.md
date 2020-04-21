@@ -41,7 +41,7 @@ const locales = allSupportedLocales();
 
 This file is generated whenever `moment-utl` is built and before a new version of it is published to NPM using a `moment` dev dependency, which may be of a different version than the `moment` package you install alongside with `moment-utl` in your project.
 
-If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date][11] section below.
+If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date with your moment installation][11] section below.
 
 ## allSupportedLocalesMap
 
@@ -64,7 +64,7 @@ const localesMap = allSupportedLocalesMap();
 
 This file is generated whenever `moment-utl` is built and before a new version of it is published to NPM using a `moment` dev dependency, which may be of a different version than the `moment` package you install alongside with `moment-utl` in your project.
 
-If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date][11] section below.
+If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date with your moment installation][11] section below.
 
 ## importLocale
 
@@ -206,7 +206,7 @@ console.log(normalizedLocale, isKnown); // ar-kw true
 console.log(normalizedLocale, isKnown); // en false
 ```
 
-## Keeping the res/locales.js file up to date
+## Keeping the res/locales.js file up to date with your moment installation
 
 **NOTE**: This will work only if you are using ES6. It will not work if you are using the `moment-utl`'s build (`node_modules/moment-utl/dist/moment-utl.js` or `node_modules/moment-utl/dist/moment-utl.min.js`).
 
@@ -216,7 +216,7 @@ Therefore, you may end up using a `moment` supporting a new locale which is not 
 
 To fix this, `moment-utl` exposes a script called `moment-utl-locales` which you can run with `npx moment-utl-locales` or `./node_modules/.bin/moment-utl-locales` as part of your build steps **before** you transpile and bundle your code with Webpack, Rollup or whatever you are using.
 
-You can run this command on your with:
+You can run this command on your terminal with:
 
 ```
 $ npx moment-utl-locales
