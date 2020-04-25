@@ -23,8 +23,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
-export { default as defaultFallbackLocale } from "./defaultFallbackLocale";
+import { DEFAULT_FALLBACK_LOCALE } from "../res/locales";
+
+/**
+ * Returns the default fallback locale.
+ * This will be USA's English, i.e. "en".
+ *
+ * @return {string} The default fallback locale.
+ */
+export default function defaultFallbackLocale() {
+  return DEFAULT_FALLBACK_LOCALE;
+}

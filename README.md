@@ -20,6 +20,7 @@ npm install --save moment moment-utl
   - [Parameters][4]
 - [toMomentLocale][5]
   - [Parameters][6]
+- [defaultFallbackLocale][14]
 
 ## allSupportedLocales
 
@@ -42,6 +43,8 @@ const locales = allSupportedLocales();
 This file is generated whenever `moment-utl` is built and before a new version of it is published to NPM using a `moment` dev dependency, which may be of a different version than the `moment` package you install alongside with `moment-utl` in your project.
 
 If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date with your moment installation][11] section below.
+
+Back to [API][15].
 
 ## allSupportedLocalesMap
 
@@ -66,16 +69,17 @@ This file is generated whenever `moment-utl` is built and before a new version o
 
 If you are using ES6 and you want to be sure that this `res/locales.js` file stays up to date with your version of `moment`, see the [Keeping the res/locales.js file up to date with your moment installation][11] section below.
 
+Back to [API][15].
+
 ## importLocale
 
 Imports a Moment locale asynchronously (using dynamic imports).
 
 ### Parameters
 
-- `locale` **[string][8]**
-  The locale to import.
+- `locale` **([string][8] | any)** The locale to import. A value which is not a string may be passed and it will be normalized to an empty string which will be treated as an unknown locale resolving to the Moment's default locale (USA's English, i.e. "en").
 
-- `unknownLocaleCallback` **(normalizedLocale: string, locale: string) => \*** (_optional_, default `undefined`)<br/>A callback called with the Moment's default locale (USA's English, i.e. "en") if the given locale is unknown as its first parameter and the given locale as the second parameter.
+- `unknownLocaleCallback` **(normalizedLocale: string, locale: string|\*) => \*** (_optional_, default `undefined`)<br/>A callback called with the Moment's default locale (USA's English, i.e. "en") if the given locale is unknown as its first parameter and the given locale as the second parameter.
   This callback will be called only when the given locale is not a locale
   known to Moment and it's not the Moment's default locale (USA's English, i.e. "en").
   If a locale is unknown, the callback is called before resolving the returned promise and the promise will resolve with the Moment's default locale (USA's English, i.e. "en").
@@ -177,6 +181,8 @@ importLocale("unknown-locale", unknownLocaleCallback).then(
 
 **NOTE**: A locale is considered to be _unknown_ if the array returned by `allSupportedLocales()` doesn't contain it. `en` is a valid locale and is assumed to refer to `en-US`, i.e. American English (Moment's default locale).
 
+Back to [API][15].
+
 ## toMomentLocale
 
 Converts a string representing a locale to a Moment locale.
@@ -187,7 +193,7 @@ then falling back to the Moment's default locale (USA's English, i.e. "en").
 
 ### Parameters
 
-- `locale` **[string][8]** A string representing a locale.
+- `locale` **([string][8] | any)** A string representing a locale. A value which is not a string may be passed and it will be normalized to an empty string and the returned locale will be the Moment's default locale (USA's English, i.e. "en").
 
 Returns **[Array][7]** A tuple where the first element is a string containing the normalized
 Moment locale for the given "locale" parameter and the second element
@@ -205,6 +211,24 @@ console.log(normalizedLocale, isKnown); // ar-kw true
 [normalizedLocale, isKnown] = toMomentLocale("blah-blah"); // Unknown locale.
 console.log(normalizedLocale, isKnown); // en false
 ```
+
+Back to [API][15].
+
+## defaultFallbackLocale
+
+Returns the default fallback locale.
+This will be USA's English, i.e. "en".
+
+Returns **[string][8]** The default fallback locale.
+
+```js
+import { defaultFallbackLocale } from "moment-utl";
+
+const locale = defaultFallbackLocale();
+// locale = "en"
+```
+
+Back to [API][15].
 
 ## Keeping the res/locales.js file up to date with your moment installation
 
@@ -249,6 +273,8 @@ You can run this script as part of your build process, e.g. in `package.json`:
 Just make sure you run `moment-utl-locales` **before** bundling your code with your module bundler.
 You can also see this [comment][12] in this [issue #1][13].
 
+Back to [API][15].
+
 [1]: #allsupportedlocales
 [2]: #allsupportedlocalesmap
 [3]: #importlocale
@@ -262,6 +288,8 @@ You can also see this [comment][12] in this [issue #1][13].
 [11]: #keeping-the-reslocalesjs-file-up-to-date-with-your-moment-installation
 [12]: https://github.com/tonix-tuft/moment-utl/issues/1#issuecomment-616088826
 [13]: https://github.com/tonix-tuft/moment-utl/issues/1
+[14]: #defaultfallbacklocale
+[15]: #api
 
 ## License
 

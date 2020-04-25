@@ -29,15 +29,16 @@ import { DEFAULT_FALLBACK_LOCALE } from "../res/locales";
 /**
  * Imports a Moment locale asynchronously (using dynamic imports).
  *
- * @param {string} locale The locale to import.
- * @param {(normalizedLocale: string, locale: string) => *} [unknownLocaleCallback] A callback called with the Moment's default locale (USA's English, i.e. "en")
- *                                                                                  if the given locale is unknown as its first parameter and the given unknown locale
- *                                                                                  as its second parameter.
- *                                                                                  This callback will be called only when the given locale is not a locale
- *                                                                                  known to Moment and it's not the Moment's default locale (USA's English, i.e. "en").
- *                                                                                  If a locale is unknown, the callback is called before resolving
- *                                                                                  the returned promise and the promise will resolve with the Moment's default locale
- *                                                                                  (USA's English, i.e. "en").
+ * @param {string|*} locale The locale to import. A value which is not a string may be passed and it will be normalized to an empty string
+ *                          which will be treated as an unknown locale resolving to the Moment's default locale (USA's English, i.e. "en").
+ * @param {(normalizedLocale: string, locale: string|*) => *} [unknownLocaleCallback] A callback called with the Moment's default locale (USA's English, i.e. "en")
+ *                                                                                    if the given locale is unknown as its first parameter and the given unknown locale
+ *                                                                                    as its second parameter.
+ *                                                                                    This callback will be called only when the given locale is not a locale
+ *                                                                                    known to Moment and it's not the Moment's default locale (USA's English, i.e. "en").
+ *                                                                                    If a locale is unknown, the callback is called before resolving
+ *                                                                                    the returned promise and the promise will resolve with the Moment's default locale
+ *                                                                                    (USA's English, i.e. "en").
  * @return {Promise} A promise which, if fulfilled, resolves with the normalized locale when the given locale has been imported
  *                   successfully or rejects with an error if the given locale cannot be imported
  *                   (e.g. the locale chunk filename is not found or there is a network error).

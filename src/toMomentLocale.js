@@ -43,11 +43,12 @@ const normalizeLocale = (locale) =>
 /**
  * Converts a string representing a locale to a Moment locale.
  *
- * This function reformats an incoming locale (e.g. "zh_CN" to "zh-cn")
- * and checks if it's supported by Moment, falling back to language code only (e.g. "zh"),
+ * This function reformats an incoming locale (e.g. "ar_KW" to "ar-kw")
+ * checking if it's supported by Moment and falling back to language code only (e.g. "ar"),
  * then falling back to the Moment's default locale (USA's English, i.e. "en").
  *
- * @param {string} locale A string representing a locale.
+ * @param {string|*} locale A string representing a locale. A value which is not a string may be passed and it will be normalized to an empty string
+ *                          and the returned locale will be the Moment's default locale (USA's English, i.e. "en").
  * @return {Array} A tuple where the first element is a string containing the normalized
  *                 Moment locale for the given "locale" parameter and the second element
  *                 is a boolean indicating whether the locale is known or not
@@ -57,7 +58,9 @@ const normalizeLocale = (locale) =>
  *                 the Moment's default locale as its first element (USA's English, i.e. "en").
  */
 export default function toMomentLocale(locale) {
-  const normalizedLocale = normalizeLocale(locale);
+  const normalizedLocale = normalizeLocale(
+    typeof locale !== "string" ? "" : locale
+  );
   const defaultNormalizedLocale = DEFAULT_FALLBACK_LOCALE;
   const localesToTry = [
     normalizedLocale,
