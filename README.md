@@ -173,10 +173,21 @@ importLocale("unknown-locale", unknownLocaleCallback).then(
   }
 );
 
+// Same if locale is not a string:
+const locale = void 0;
+importLocale(locale, unknownLocaleCallback).then((normalizedLocale) => {
+  moment.locale(normalizedLocale);
+  console.log(`Normalized locale: ${normalizedLocale}`); // en
+  console.log(moment().format("LLLL")); // Monday, April 20, 2020 7:11 PM
+});
+
 // Will output, in order:
 // The locale "unknown-locale" is unknown. importLocale will resolve with "en"
+// The locale "undefined" is unknown. importLocale will resolve with "en"
 // Normalized locale: en
-// Monday, April 20, 2020 7:11 PM
+// Saturday, April 25, 2020 11:12 AM
+// Normalized locale: en
+// Saturday, April 25, 2020 11:12 AM
 ```
 
 **NOTE**: A locale is considered to be _unknown_ if the array returned by `allSupportedLocales()` doesn't contain it. `en` is a valid locale and is assumed to refer to `en-US`, i.e. American English (Moment's default locale).
@@ -209,6 +220,9 @@ let [normalizedLocale, isKnown] = toMomentLocale("ar_KW"); // Known locale.
 console.log(normalizedLocale, isKnown); // ar-kw true
 
 [normalizedLocale, isKnown] = toMomentLocale("blah-blah"); // Unknown locale.
+console.log(normalizedLocale, isKnown); // en false
+
+[normalizedLocale, isKnown] = toMomentLocale(null); // Unknown locale.
 console.log(normalizedLocale, isKnown); // en false
 ```
 
