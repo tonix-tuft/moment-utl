@@ -2,12 +2,18 @@
 
 Moment.js utilities.
 
-[![NPM](https://img.shields.io/npm/v/moment-utl.svg)](https://www.npmjs.com/package/moment-utl) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/moment-utl.svg)](https://www.npmjs.com/package/moment-utl)
 
-## Install
+## Installation
 
 ```bash
-npm install --save moment moment-utl
+npm install --save moment-utl
+```
+
+Install peer dependencies:
+
+```bash
+npm install --save moment
 ```
 
 ## Usage
