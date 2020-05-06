@@ -279,6 +279,7 @@ $ ./node_modules/.bin/moment-utl-locales
 You can run this script as part of your build process, e.g. in `package.json`:
 
 ```js
+{
   ...
   "scripts": {
     ...
@@ -288,6 +289,7 @@ You can run this script as part of your build process, e.g. in `package.json`:
     ...
   }
   ...
+}
 ```
 
 Just make sure you run `moment-utl-locales` **before** bundling your code with your module bundler.
