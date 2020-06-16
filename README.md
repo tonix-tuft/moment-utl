@@ -22,11 +22,13 @@ npm install --save moment
 
 - [allSupportedLocales][1]
 - [allSupportedLocalesMap][2]
-- [importLocale][3]
-  - [Parameters][4]
-- [toMomentLocale][5]
-  - [Parameters][6]
 - [defaultFallbackLocale][14]
+- [firstDateOfCurrentMonth][16]
+  - [Parameters](#firstdateofcurrentmonth-parameters)
+- [importLocale][3]
+  - [Parameters](#importlocales-parameters)
+- [toMomentLocale][5]
+  - [Parameters](#tomomentlocale-parameters)
 
 ## allSupportedLocales
 
@@ -77,11 +79,46 @@ If you are using ES6 and you want to be sure that this `res/locales.js` file sta
 
 Back to [API][15].
 
+## defaultFallbackLocale
+
+Returns the default fallback locale.
+This will be USA's English, i.e. "en".
+
+Returns **[string][8]** The default fallback locale.
+
+```js
+import { defaultFallbackLocale } from "moment-utl";
+
+const locale = defaultFallbackLocale();
+// locale = "en"
+```
+
+Back to [API][15].
+
+## firstDateOfCurrentMonth
+
+Returns the first date of the current month.
+
+### <a id="firstdateofcurrentmonth-parameters" name="firstdateofcurrentmonth-parameters">Parameters</a>
+
+- `format` **([string][8])** (_optional_, default `"YYYY-MM-DD"`)<br/>The format string for the date.
+
+Returns **[string][8]** The first date of the current month.
+
+```js
+import { firstDateOfCurrentMonth } from "moment-utl";
+
+const date = firstDateOfCurrentMonth();
+// Assuming that the current month is June 2020, then date = "2020-06-01"
+```
+
+Back to [API][15].
+
 ## importLocale
 
 Imports a Moment locale asynchronously (using dynamic imports).
 
-### Parameters
+### <a id="importlocales-parameters" name="importlocales-parameters">Parameters</a>
 
 - `locale` **([string][8] | any)** The locale to import. A value which is not a string may be passed and it will be normalized to an empty string which will be treated as an unknown locale resolving to the Moment's default locale (USA's English, i.e. "en").
 
@@ -208,7 +245,7 @@ This function reformats an incoming locale (e.g. "ar_KW" to "ar-kw")
 checking if it's supported by Moment and falling back to language code only (e.g. "ar"),
 then falling back to the Moment's default locale (USA's English, i.e. "en").
 
-### Parameters
+### <a id="tomomentlocale-parameters" name="tomomentlocale-parameters">Parameters</a>
 
 - `locale` **([string][8] | any)** A string representing a locale. A value which is not a string may be passed and it will be normalized to an empty string and the returned locale will be the Moment's default locale (USA's English, i.e. "en").
 
@@ -230,22 +267,6 @@ console.log(normalizedLocale, isKnown); // en false
 
 [normalizedLocale, isKnown] = toMomentLocale(null); // Unknown locale.
 console.log(normalizedLocale, isKnown); // en false
-```
-
-Back to [API][15].
-
-## defaultFallbackLocale
-
-Returns the default fallback locale.
-This will be USA's English, i.e. "en".
-
-Returns **[string][8]** The default fallback locale.
-
-```js
-import { defaultFallbackLocale } from "moment-utl";
-
-const locale = defaultFallbackLocale();
-// locale = "en"
 ```
 
 Back to [API][15].
@@ -300,9 +321,7 @@ Back to [API][15].
 [1]: #allsupportedlocales
 [2]: #allsupportedlocalesmap
 [3]: #importlocale
-[4]: #parameters
 [5]: #tomomentlocale
-[6]: #parameters-1
 [7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 [8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 [9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
@@ -312,6 +331,7 @@ Back to [API][15].
 [13]: https://github.com/tonix-tuft/moment-utl/issues/1
 [14]: #defaultfallbacklocale
 [15]: #api
+[16]: #firstdateofcurrentmonth
 
 ## License
 

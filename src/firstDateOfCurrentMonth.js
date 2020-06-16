@@ -23,9 +23,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
-export { default as defaultFallbackLocale } from "./defaultFallbackLocale";
-export { default as firstDateOfCurrentMonth } from "./firstDateOfCurrentMonth";
+import moment from "moment";
+
+/**
+ * Returns the first date of the current month.
+ *
+ * @param {string} format The format string for the date.
+ * @return {string} The first date of the current month.
+ */
+export default function firstDateOfCurrentMonth(format = "YYYY-MM-DD") {
+  return moment().date(1).format(format);
+}
