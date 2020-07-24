@@ -23,11 +23,18 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
-export { default as defaultFallbackLocale } from "./defaultFallbackLocale";
-export { default as firstDateOfCurrentMonth } from "./firstDateOfCurrentMonth";
-export { default as getWeekDays } from "./getWeekDays";
-export { default as getWeekRange } from "./getWeekRange";
+import moment from "moment";
+
+/**
+ * Returns the range of the week in which a given date or today's date falls in.
+ *
+ * @param {Moment|Date|string|number|undefined} [date] The date to use for which to return the range of the week in which the date falls in.
+ *                                                     If not given, today's date is assumed.
+ * @return {Object} An object with two properties: "from" containing the initial day of the week (Date instance) and "to" containing the final day of the week (Date instance).
+ */
+export default function getWeekRange(date = void 0) {
+  return {
+    from: moment(date).startOf("week").toDate(),
+    to: moment(date).endOf("week").toDate(),
+  };
+}

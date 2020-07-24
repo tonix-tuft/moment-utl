@@ -26,9 +26,15 @@ var config = {
       "(typeof self !== 'undefined' ? self : (typeof global !== 'undefined' ? global : this))",
     umdNamedDefine: true,
   },
-  externals: {
-    moment: "moment",
-  },
+  externals: [
+    { moment: "moment" },
+    function (context, request, callback) {
+      if (/\/moment$/.test(request) && /(^|\/)moment(\/|$)/.test(context)) {
+        return callback(null, "moment");
+      }
+      callback();
+    },
+  ],
   module: {
     rules: [
       {

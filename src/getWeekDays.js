@@ -23,11 +23,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-export { default as importLocale } from "./importLocale";
-export { default as allSupportedLocales } from "./allSupportedLocales";
-export { default as allSupportedLocalesMap } from "./allSupportedLocalesMap";
-export { default as toMomentLocale } from "./toMomentLocale";
-export { default as defaultFallbackLocale } from "./defaultFallbackLocale";
-export { default as firstDateOfCurrentMonth } from "./firstDateOfCurrentMonth";
-export { default as getWeekDays } from "./getWeekDays";
-export { default as getWeekRange } from "./getWeekRange";
+import moment from "moment";
+
+/**
+ * Returns the days of the week in which a given date or today's date falls in.
+ *
+ * @param {Moment|Date|string|number|undefined} [date] The date to use for which to return the days of the week in which the date falls in.
+ *                                                     If not given, today's date is assumed.
+ * @return {Date[]} The days of the week.
+ */
+export default function getWeekDays(date = void 0) {
+  date = moment(date).startOf("week").toDate();
+  const days = [date];
+  for (let i = 1; i < 7; i += 1) {
+    days.push(moment(date).add(i, "days").toDate());
+  }
+  return days;
+}

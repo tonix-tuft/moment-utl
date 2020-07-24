@@ -25,6 +25,10 @@ npm install --save moment
 - [defaultFallbackLocale][14]
 - [firstDateOfCurrentMonth][16]
   - [Parameters](#firstdateofcurrentmonth-parameters)
+- [getWeekDays][17]
+  - [Parameters](#getweekdays-parameters)
+- [getWeekRange][18]
+  - [Parameters](#getweekrange-parameters)
 - [importLocale][3]
   - [Parameters](#importlocales-parameters)
 - [toMomentLocale][5]
@@ -110,6 +114,63 @@ import { firstDateOfCurrentMonth } from "moment-utl";
 
 const date = firstDateOfCurrentMonth();
 // Assuming that the current month is June 2020, then date = "2020-06-01"
+```
+
+Back to [API][15].
+
+## getWeekDays
+
+Returns the days of the week in which a given date or today's date falls in.
+
+### <a id="getweekdays-parameters" name="getweekdays-parameters">Parameters</a>
+
+- `date` **(Moment | [Date][19] | [string][8] | [number][20] | [undefined][21])** (_optional_, default `undefined`)<br/>The date to use for which to return the days of the week in which the date falls in. If not given, today's date is assumed.
+
+Returns **[Array][7]&lt;[Date][19]>** The days of the week.
+
+```js
+import { getWeekDays } from "moment-utl";
+
+const weekDays = getWeekDays("2020-07-14");
+/*
+ * weekDays will contain instances of Date:
+ *
+ * weekDays = [
+ *   Sun Jul 12 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-12")
+ *   Mon Jul 13 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-13")
+ *   Tue Jul 14 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-14")
+ *   Wed Jul 15 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-15")
+ *   Thu Jul 16 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-16")
+ *   Fri Jul 17 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-17")
+ *   Sat Jul 18 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-18")
+ * ]
+ */
+```
+
+Back to [API][15].
+
+## getWeekRange
+
+Returns the range of the week in which a given date or today's date falls in.
+
+### <a id="getweekrange-parameters" name="getweekrange-parameters">Parameters</a>
+
+- `date` **(Moment | [Date][19] | [string][8] | [number][20] | [undefined][21])** (_optional_, default `undefined`)<br/>The date to use for which to return the range of the week in which the date falls in. If not given, today's date is assumed.
+
+Returns **[Array][7]&lt;[Date][19]>** An object with two properties: `from` containing the initial day of the week (`Date` instance) and `to` containing the final day of the week (`Date` instance).
+
+```js
+import { getWeekRange } from "moment-utl";
+
+const weekRange = getWeekRange("2020-07-14");
+/*
+ * weekRange will contain instances of Date:
+ *
+ * weekRange = {
+ *   from: Sun Jul 12 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-12")
+ *   to: Sat Jul 18 2020 00:00:00 GMT+0200 (Central European Summer Time) {}, // new Date("2020-07-18")
+ * }
+ */
 ```
 
 Back to [API][15].
@@ -332,6 +393,11 @@ Back to [API][15].
 [14]: #defaultfallbacklocale
 [15]: #api
 [16]: #firstdateofcurrentmonth
+[17]: #getweekdays
+[18]: #getweekrange
+[19]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+[20]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[21]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
 
 ## License
 
