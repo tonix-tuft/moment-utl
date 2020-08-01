@@ -17,6 +17,7 @@
   "license": "MIT",
   "main": "dist/moment-utl.js",
   "module": "es6/index.js",
+  "typings": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonix-tuft/moment-utl.git"
@@ -78,6 +79,7 @@
     "es6",
     "res",
     "scripts",
-    "src"
+    "src",
+    "index.d.ts"
   ]
 }
