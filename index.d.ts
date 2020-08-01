@@ -1,42 +1,26 @@
 import moment from "moment";
 
-declare module "moment-utl" {
-  type Dictionary<K extends string, T> = { [P in K]?: T };
+type Dictionary<K extends string, T> = { [P in K]?: T };
 
-  import Moment = moment.Moment;
+type Moment = moment.Moment;
 
-  function allSupportedLocales(): string[];
-  function allSupportedLocalesMap(): Dictionary<string, number>;
+export function allSupportedLocales(): string[];
+export function allSupportedLocalesMap(): Dictionary<string, number>;
 
-  function defaultFallbackLocale(): string;
+export function defaultFallbackLocale(): string;
 
-  function firstDateOfCurrentMonth(format: string): string;
+export function firstDateOfCurrentMonth(format: string): string;
 
-  function getWeekDays(
-    date?: Moment | Date | string | number | undefined
-  ): Date[];
-  function getWeekRange(
-    date?: Moment | Date | string | number | undefined
-  ): Record<"from" | "to", Date>;
+export function getWeekDays(
+  date?: Moment | Date | string | number | undefined
+): Date[];
+export function getWeekRange(
+  date?: Moment | Date | string | number | undefined
+): Record<"from" | "to", Date>;
 
-  function importLocale(
-    locale: string,
-    unknownLocaleCallback: (
-      normalizedLocale: string,
-      locale: string
-    ) => undefined
-  ): Promise<string>;
+export function importLocale(
+  locale: string,
+  unknownLocaleCallback: (normalizedLocale: string, locale: string) => undefined
+): Promise<string>;
 
-  function toMomentLocale(locale: string): [string, boolean];
-
-  export {
-    allSupportedLocales,
-    allSupportedLocalesMap,
-    defaultFallbackLocale,
-    firstDateOfCurrentMonth,
-    getWeekDays,
-    getWeekRange,
-    importLocale,
-    toMomentLocale,
-  };
-}
+export function toMomentLocale(locale: string): [string, boolean];
