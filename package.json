@@ -27,10 +27,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "WEBPACK_ENV=watch webpack --progress --colors --watch",
+    "watch": "WEBPACK_ENV=watch webpack --progress --color --watch",
     "mkdir-build": "mkdir -p ./es6 && mkdir -p ./dist/bin && mkdir -p ./res",
     "clear-build": "find ./dist ! -name '.gitignore' -type f -exec rm -f {} +",
-    "dev-build": "WEBPACK_ENV=watch webpack --progress --colors",
+    "dev-build": "WEBPACK_ENV=watch webpack --progress --color",
     "build": "WEBPACK_ENV=build webpack",
     "build-bin": "cross-env BABEL_ENV=bin ./node_modules/.bin/babel ./scripts --out-dir ./dist/bin --source-maps --copy-files",
     "build-module": "cross-env BABEL_ENV=module ./node_modules/.bin/babel ./src --out-dir ./es6 --source-maps --copy-files",
@@ -64,7 +64,7 @@
     "terser-webpack-plugin": "^3.1.0",
     "typescript": "^3.9.7",
     "webpack": "^5.45.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.8.0"
   },
   "bugs": {
     "url": "https://github.com/tonix-tuft/moment-utl/issues"
